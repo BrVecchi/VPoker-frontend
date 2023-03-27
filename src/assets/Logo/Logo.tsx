@@ -1,9 +1,15 @@
 import { ImSpades } from "react-icons/im";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 export function Logo() {
+  const navigate = useNavigate();
+  const goToHome = () => {
+    navigate("/");
+  };
+
   return (
-    <Container>
+    <Container onClick={goToHome}>
       <ImSpades size="53px" color="#FFFFFF" />
       <Text>V.POKER</Text>
     </Container>
@@ -14,6 +20,9 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 const Text = styled.span`
   margin-left: 30px;

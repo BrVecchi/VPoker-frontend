@@ -9,10 +9,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@types/react-modal": "^3.13.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.8.0",
     "react-input-mask": "^2.0.4",
+    "react-modal": "^3.16.1",
     "react-router-dom": "^6.9.0",
     "react-scripts": "^5.0.1",
     "react-useinterval": "^1.0.2",

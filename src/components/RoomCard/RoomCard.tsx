@@ -3,7 +3,7 @@ import { GiPokerHand } from "react-icons/gi";
 import { TbPokerChip } from "react-icons/tb";
 import styled from "styled-components";
 
-export function RoomCard() {
+export function RoomCard(props: any) {
   return (
     <Container>
       <IconContainer>
@@ -11,18 +11,18 @@ export function RoomCard() {
       </IconContainer>
       <Data>
         <Texts>
-          <Format>Hold'en</Format>
-          <Name>Nome da Sala</Name>
+          <Format>{props.format}</Format>
+          <Name>{props.name}</Name>
         </Texts>
         <Buyin>
           <TbPokerChip size="25px" color="#3F3F3F" opacity="0.7" />
-          <span>10.000</span>
+          <span>{props.buyin}</span>
         </Buyin>
       </Data>
       <Info>
         <AiOutlineInfoCircle size="21px" color="#3F3F3F" opacity="0.8" />
       </Info>
-      <Places>4/6</Places>
+      <Places>0/{props.capacity}</Places>
     </Container>
   );
 }
@@ -36,10 +36,11 @@ const Container = styled.div`
   font-family: "Quicksand", sans-serif;
   width: 408px;
   height: 188px;
+  opacity: 0.9;
   position: relative;
   &:hover {
     cursor: pointer;
-    filter: saturate(135%);
+    filter: saturate(145%);
     /* filter: grayscale(135%); */
   }
 `;
