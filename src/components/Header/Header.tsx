@@ -1,18 +1,26 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import { Logo } from "../../assets/Logo/Logo";
 
 export function Header() {
+  const navigate = useNavigate();
+  const goToSignIn = () => {
+    navigate("/sign-in");
+  };
+  const goToSignUp = () => {
+    navigate("/sign-up");
+  };
   return (
     <Container>
       <LogoBox>
         <Logo />
       </LogoBox>
       <Auth>
-        <SignUp>
+        <SignUp onClick={goToSignUp}>
           <span>sign-up</span>
         </SignUp>
-        <SignIn>
+        <SignIn onClick={goToSignIn}>
           <span>sign-in</span>
         </SignIn>
       </Auth>

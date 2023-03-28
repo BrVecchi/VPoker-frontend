@@ -19,8 +19,8 @@ export function RoomForm(props: any) {
         <Text>Cadastro da Sala</Text>
       </Title>
       <form onSubmit={navigateForRoom}>
-        <LabelName htmlFor="name">NOME DA SALA: </LabelName>
-        <Name
+        <label htmlFor="name">NOME DA SALA: </label>
+        <input
           name="name"
           required
           type="text"
@@ -28,8 +28,8 @@ export function RoomForm(props: any) {
           onChange={(e) => setName(e.target.value)}
         />
 
-        <LabelFormat htmlFor="format">FORMATO: </LabelFormat>
-        <Format
+        <label htmlFor="format">FORMATO: </label>
+        <select
           name="format"
           required
           value={format}
@@ -37,16 +37,16 @@ export function RoomForm(props: any) {
         >
           <option value="holden">Texas Hold`em</option>
           <option value="draw">Five Card Draw</option>
-        </Format>
+        </select>
 
-        <LabelBuyIn htmlFor="BuyIn">BUY-IN: </LabelBuyIn>
-        <BuyIn
+        <label htmlFor="BuyIn">BUY-IN: </label>
+        <input
           name="buy-in"
           required
           type="number"
           value={buyIn}
           onChange={(e) => setBuyIn(e.target.value)}
-        ></BuyIn>
+        />
         <Buttons>
           <Cancel name="cancel">
             <IoClose size={25} color="#000000" opacity="0.3" />
@@ -82,7 +82,9 @@ const Container = styled.div`
     select {
       background: #222947;
       opacity: 0.7;
-      border-radius: 13px;
+      opacity: 0.8;
+      border: 2px solid #ffffff;
+      border-radius: 17px;
       height: "8%";
       font-family: "Quicksand", sans-serif;
       color: #ffffff;
@@ -113,12 +115,6 @@ const Text = styled.span`
   font-size: 20px;
   opacity: 0.7;
 `;
-const LabelName = styled.label``;
-const LabelFormat = styled.label``;
-const LabelBuyIn = styled.label``;
-const Name = styled.input``;
-const Format = styled.select``;
-const BuyIn = styled.input``;
 
 const Buttons = styled.div`
   display: flex;
