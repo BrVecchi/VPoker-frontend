@@ -10,8 +10,8 @@ export function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const goToHome = () => {
-    navigate("/");
+  const goToSignIn = () => {
+    navigate("/sign-in");
   };
   return (
     <Container>
@@ -46,7 +46,7 @@ export function SignUp() {
           onChange={(e) => setPassword(e.target.value)}
         />
         <Button>
-          <Confirm onClick={goToHome} name="confirm" type="submit">
+          <Confirm onClick={goToSignIn} name="confirm" type="submit">
             CADASTRAR
           </Confirm>
         </Button>
