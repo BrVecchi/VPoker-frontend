@@ -49,7 +49,7 @@ export function Home() {
         }}
         contentLabel="Example Modal"
       >
-        <RoomForm />
+        <RoomForm closeModal={closeModal} />
       </Modal>
       <Title>
         <Text>Rooms</Text>

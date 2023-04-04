@@ -13,6 +13,10 @@ export function RoomForm(props: any) {
     e.preventDefault();
     navigate("/room");
   };
+
+  const closeModal = () => {
+    props.closeModal();
+  };
   return (
     <Container>
       <Title>
@@ -48,7 +52,7 @@ export function RoomForm(props: any) {
           onChange={(e) => setBuyIn(e.target.value)}
         />
         <Buttons>
-          <Cancel name="cancel">
+          <Cancel name="cancel" onClick={closeModal}>
             <IoClose size={25} color="#000000" opacity="0.3" />
           </Cancel>
           <Confirm name="confirm" type="submit">
