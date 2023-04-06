@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import { Logo } from "../../assets/Logo/Logo";
+import { signUp } from "../../services/userApi";
 
 export function SignUp() {
   const navigate = useNavigate();
@@ -11,6 +12,7 @@ export function SignUp() {
   const [password, setPassword] = useState("");
 
   const goToSignIn = () => {
+    signUp(name, email, password);
     navigate("/sign-in");
   };
   return (

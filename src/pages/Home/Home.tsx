@@ -3,10 +3,10 @@ import { IoIosAdd } from "react-icons/io";
 import Modal from "react-modal";
 import styled from "styled-components";
 
-import { mockRooms } from "../../../public/mock/room";
 import { Header } from "../../components/Header/Header";
 import { RoomCard } from "../../components/RoomCard/RoomCard";
 import { RoomForm } from "../../components/RoomForm/RoomForm";
+import { mockRooms } from "../../mock/room";
 
 export function Home() {
   const [modalIsOpen, setIsOpen] = useState(false);
