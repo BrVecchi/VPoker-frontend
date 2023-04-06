@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import styled from "styled-components";
 
 import { Logo } from "../../assets/Logo/Logo";
@@ -10,17 +11,30 @@ export function SignUp() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
-  const goToSignIn = () => {
-    signUp(name, email, password);
-    navigate("/sign-in");
+  const onSubmit = async (event: { preventDefault: () => void }) => {
+    event.preventDefault();
+
+    if (password !== confirmPassword) {
+      toast("As senha devem ser iguais");
+    } else {
+      try {
+        await signUp(name, email, password);
+        toast("Inscrito com sucesso! Por favor, faça login.");
+        navigate("/sign-in");
+      } catch (error) {
+        toast("Não foi possível fazer o cadastro!");
+      }
+    }
   };
+
   return (
     <Container>
       <Title>
         <Logo />
       </Title>
-      <form>
+      <form onSubmit={onSubmit}>
         <label htmlFor="name">NOME DO USUÁRIO: </label>
         <input
           name="name"
@@ -47,8 +61,17 @@ export function SignUp() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+
+        <label htmlFor="Confirm">CONFIRME A SENHA: </label>
+        <input
+          name="Confirm"
+          required
+          type="password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+        />
         <Button>
-          <Confirm onClick={goToSignIn} name="confirm" type="submit">
+          <Confirm name="confirm" type="submit">
             CADASTRAR
           </Confirm>
         </Button>
