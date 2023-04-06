@@ -1,23 +1,33 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import styled from "styled-components";
 
 import { Logo } from "../../assets/Logo/Logo";
+import { signIn } from "../../services/authApi";
 
 export function SignIn() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const goToHome = () => {
-    navigate("/");
+  const submit = async (event: { preventDefault: () => void }) => {
+    event.preventDefault();
+    try {
+      await signIn(email, password);
+      toast("Login realizado com sucesso!");
+      navigate("/");
+    } catch (error) {
+      toast("Não foi possível fazer o login!");
+    }
   };
+
   return (
     <Container>
       <Title>
         <Logo />
       </Title>
-      <form>
+      <form onSubmit={submit}>
         <label htmlFor="email">E-MAIL: </label>
         <input
           name="email"
@@ -36,7 +46,7 @@ export function SignIn() {
           onChange={(e) => setPassword(e.target.value)}
         />
         <Button>
-          <Confirm onClick={goToHome} name="confirm" type="submit">
+          <Confirm name="confirm" type="submit">
             ENTRAR
           </Confirm>
         </Button>

@@ -1,16 +1,23 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
-export default function useAsync(handler, immediate = true) {
+export default function useAsync(
+  handler: {
+    (email: string, password: string): Promise<any>;
+    (name: string, email: string, password: string): Promise<any>;
+    (arg0: any): any;
+  },
+  immediate = true
+) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(immediate);
   const [error, setError] = useState(null);
 
-  const act = async (...args) => {
+  const act = async (...args: any[]) => {
     setLoading(true);
     setError(null);
 
     try {
-      const data = await handler(...args);
+      const data = await handler(args);
       setData(data);
       setLoading(false);
       return data;
