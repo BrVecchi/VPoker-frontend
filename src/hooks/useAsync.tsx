@@ -1,11 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 export default function useAsync(
-  handler: {
-    (email: string, password: string): Promise<any>;
-    (name: string, email: string, password: string): Promise<any>;
-    (arg0: any): any;
-  },
+  handler: (...args: any[]) => Promise<any>,
   immediate = true
 ) {
   const [data, setData] = useState(null);
@@ -32,8 +28,6 @@ export default function useAsync(
     if (immediate) {
       act();
     }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return {
