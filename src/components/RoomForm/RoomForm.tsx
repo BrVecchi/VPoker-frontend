@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import { IoCheckmark, IoClose } from 'react-icons/io5';
-import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
+import { useEffect, useState } from "react";
+import { IoCheckmark, IoClose } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 
-import useCreateRoom from '../../hooks/api/useCreateRoom';
+import useCreateRoom from "../../hooks/api/useCreateRoom";
 
 export function RoomForm(props: any) {
   const navigate = useNavigate();
@@ -12,11 +12,26 @@ export function RoomForm(props: any) {
   const [buyIn, setBuyIn] = useState("");
   const { createRoom } = useCreateRoom();
   const [formatId, setFormatId] = useState(0);
+  console.log(format, formatId);
 
   const createAndOpenRoom = async (e: any) => {
     e.preventDefault();
     await createRoom(name, formatId, buyIn);
     navigate("/");
+  };
+
+  useEffect(() => {
+    changeFormatId();
+  }, [format]);
+
+  const changeFormatId = () => {
+    let newFormatId = 0;
+    if (format === "Texas Hold`em") {
+      newFormatId = 1;
+    } else if (format === "Omaha Hi") {
+      newFormatId = 2;
+    }
+    setFormatId(newFormatId);
   };
 
   const closeModal = () => {
@@ -44,15 +59,13 @@ export function RoomForm(props: any) {
           value={format}
           onChange={(e) => {
             setFormat(e.target.value);
-            if (format === "Texas Hold`em") {
-              setFormatId(1);
-            } else if (format === "Omaha Hi") {
-              setFormatId(2);
-            }
           }}
         >
-          <option value="holden">Texas Hold`em</option>
-          <option value="draw">Omaha Hi</option>
+          <option hidden value="">
+            Escolha o formato
+          </option>
+          <option value="Texas Hold`em">Texas Hold`em</option>
+          <option value="Omaha Hi">Omaha Hi</option>
         </select>
 
         <label htmlFor="BuyIn">BUY-IN: </label>
