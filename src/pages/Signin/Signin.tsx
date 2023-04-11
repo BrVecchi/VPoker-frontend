@@ -1,20 +1,23 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import styled from "styled-components";
 
 import { Logo } from "../../assets/Logo/Logo";
+import UserContext from "../../contexts/UserContext";
 import { signIn } from "../../services/authApi";
 
 export function SignIn() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { setUserData } = useContext(UserContext);
 
   const submit = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
     try {
-      await signIn(email, password);
+      const userData = await signIn(email, password);
+      setUserData(userData);
       toast("Login realizado com sucesso!");
       navigate("/");
     } catch (error) {

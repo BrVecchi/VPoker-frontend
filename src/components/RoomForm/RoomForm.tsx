@@ -1,17 +1,22 @@
-import { useState } from "react";
-import { IoCheckmark, IoClose } from "react-icons/io5";
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
+import { useState } from 'react';
+import { IoCheckmark, IoClose } from 'react-icons/io5';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+
+import useCreateRoom from '../../hooks/api/useCreateRoom';
 
 export function RoomForm(props: any) {
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [format, setFormat] = useState("");
   const [buyIn, setBuyIn] = useState("");
+  const { createRoom } = useCreateRoom();
+  const [formatId, setFormatId] = useState(0);
 
-  const navigateForRoom = (e: any) => {
+  const createAndOpenRoom = async (e: any) => {
     e.preventDefault();
-    navigate("/room");
+    await createRoom(name, formatId, buyIn);
+    navigate("/");
   };
 
   const closeModal = () => {
@@ -22,7 +27,7 @@ export function RoomForm(props: any) {
       <Title>
         <Text>Cadastro da Sala</Text>
       </Title>
-      <form onSubmit={navigateForRoom}>
+      <form onSubmit={createAndOpenRoom}>
         <label htmlFor="name">NOME DA SALA: </label>
         <input
           name="name"
@@ -37,10 +42,17 @@ export function RoomForm(props: any) {
           name="format"
           required
           value={format}
-          onChange={(e) => setFormat(e.target.value)}
+          onChange={(e) => {
+            setFormat(e.target.value);
+            if (format === "Texas Hold`em") {
+              setFormatId(1);
+            } else if (format === "Omaha Hi") {
+              setFormatId(2);
+            }
+          }}
         >
           <option value="holden">Texas Hold`em</option>
-          <option value="draw">Five Card Draw</option>
+          <option value="draw">Omaha Hi</option>
         </select>
 
         <label htmlFor="BuyIn">BUY-IN: </label>

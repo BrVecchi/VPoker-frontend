@@ -1,15 +1,17 @@
-import { useState } from "react";
-import { IoIosAdd } from "react-icons/io";
-import Modal from "react-modal";
-import styled from "styled-components";
+import React, { useEffect, useState } from 'react';
+import { IoIosAdd } from 'react-icons/io';
+import Modal from 'react-modal';
+import styled from 'styled-components';
 
-import { Header } from "../../components/Header/Header";
-import { RoomCard } from "../../components/RoomCard/RoomCard";
-import { RoomForm } from "../../components/RoomForm/RoomForm";
-import { mockRooms } from "../../mock/room";
+import { Header } from '../../components/Header/Header';
+import { RoomCard } from '../../components/RoomCard/RoomCard';
+import { RoomForm } from '../../components/RoomForm/RoomForm';
+import useRooms from '../../hooks/api/useRoom';
 
 export function Home() {
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [rooms, setRooms] = useState([]);
+  const { getRoomsInfo } = useRooms();
 
   function openModal() {
     setIsOpen(true);
@@ -17,6 +19,20 @@ export function Home() {
   function closeModal() {
     setIsOpen(false);
   }
+
+  useEffect(() => {
+    async function fetchRoomsInfo() {
+      const data = await getRoomsInfo();
+      setRooms(data);
+    }
+
+    fetchRoomsInfo();
+  }, []);
+
+  if (!rooms) {
+    return <span>loading</span>;
+  }
+
   return (
     <Container>
       <Header />
@@ -56,13 +72,13 @@ export function Home() {
       </Title>
       <RoomsContainer>
         <Rooms>
-          {mockRooms.map((room) => {
+          {rooms.map((room) => {
             return (
               <RoomCard
                 name={room.name}
-                format={room.format}
+                format={room.format_id}
                 buyin={room.buyin}
-                capacity={room.capacity}
+                capacity={6}
               />
             );
           })}
@@ -102,18 +118,17 @@ const Text = styled.span`
 `;
 
 const RoomsContainer = styled.div`
-  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: min-content;
 `;
 
 const Rooms = styled.div`
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   margin-top: 5%;
-  gap: 25px 25px;
+  gap: 40px;
 `;
 
 const AddIcon = styled.div`
