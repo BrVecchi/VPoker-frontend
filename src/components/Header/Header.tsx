@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { Logo } from "../../assets/Logo/Logo";
 
 export function Header() {
+  const savedData = localStorage.getItem("userData");
   const navigate = useNavigate();
   const goToSignIn = () => {
     navigate("/sign-in");
@@ -11,20 +12,40 @@ export function Header() {
   const goToSignUp = () => {
     navigate("/sign-up");
   };
+
+  const logOut = () => {
+    localStorage.removeItem("userData");
+    navigate("/sign-in");
+  };
   return (
-    <Container>
-      <LogoBox>
-        <Logo />
-      </LogoBox>
-      <Auth>
-        <SignUp onClick={goToSignUp}>
-          <span>sign-up</span>
-        </SignUp>
-        <SignIn onClick={goToSignIn}>
-          <span>sign-in</span>
-        </SignIn>
-      </Auth>
-    </Container>
+    <>
+      {!savedData ? (
+        <Container>
+          <LogoBox>
+            <Logo />
+          </LogoBox>
+          <Auth>
+            <SignUp onClick={goToSignUp}>
+              <span>sign-up</span>
+            </SignUp>
+            <SignIn onClick={goToSignIn}>
+              <span>sign-in</span>
+            </SignIn>
+          </Auth>
+        </Container>
+      ) : (
+        <Container>
+          <LogoBox>
+            <Logo />
+          </LogoBox>
+          <Auth>
+            <LogOut onClick={logOut}>
+              <span>log-out</span>
+            </LogOut>
+          </Auth>
+        </Container>
+      )}
+    </>
   );
 }
 
@@ -68,6 +89,28 @@ const SignUp = styled.div`
   }
 `;
 const SignIn = styled.div`
+  background: #ffffff;
+  opacity: 0.7;
+  border-radius: 9px;
+  padding: 8px;
+  margin-left: 5px;
+  &:hover {
+    cursor: pointer;
+    opacity: 0.9;
+  }
+  span {
+    font-family: "Quicksand", sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 25px;
+    letter-spacing: 0.155em;
+    color: #b64358;
+    opacity: 0.8;
+  }
+`;
+
+const LogOut = styled.div`
   background: #ffffff;
   opacity: 0.7;
   border-radius: 9px;
