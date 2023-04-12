@@ -1,5 +1,3 @@
-//correct to tsx
-
 import * as authApi from "../../services/authApi";
 import useAsync from "../useAsync";
 
@@ -8,7 +6,7 @@ export default function useSignUp() {
     loading: signInLoading,
     error: signInError,
     act: signIn,
-  } = useAsync({ handler: authApi.signIn, immediate: false });
+  } = useAsync(authApi.signIn, false);
 
   return {
     signInLoading,
