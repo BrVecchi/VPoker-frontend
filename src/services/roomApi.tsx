@@ -1,5 +1,5 @@
-import { RoomInfo } from '../hooks/api/useRoom';
-import api from './api';
+import { RoomInfo } from "../hooks/api/useRoom";
+import api from "./api";
 
 export async function getRoomsInfo(): Promise<RoomInfo[]> {
   const response = await api.get("/rooms");
@@ -14,7 +14,7 @@ export async function createRoom(
 ) {
   const response = await api.post(
     "/rooms",
-    { name, format_id, buyin },
+    { name, format_id, buyin: Number(buyin) },
     {
       headers: {
         Authorization: `Bearer ${token}`,

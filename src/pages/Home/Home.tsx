@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { IoIosAdd } from 'react-icons/io';
-import Modal from 'react-modal';
-import styled from 'styled-components';
+import { useEffect, useState } from "react";
+import { IoIosAdd } from "react-icons/io";
+import Modal from "react-modal";
+import styled from "styled-components";
 
-import { Header } from '../../components/Header/Header';
-import { RoomCard } from '../../components/RoomCard/RoomCard';
-import { RoomForm } from '../../components/RoomForm/RoomForm';
-import useRooms from '../../hooks/api/useRoom';
+import { Header } from "../../components/Header/Header";
+import { RoomCard } from "../../components/RoomCard/RoomCard";
+import { RoomForm } from "../../components/RoomForm/RoomForm";
+import useRooms, { RoomInfo } from "../../hooks/api/useRoom";
 
 export function Home() {
   const [modalIsOpen, setIsOpen] = useState(false);
-  const [rooms, setRooms] = useState([]);
+  const [rooms, setRooms] = useState<RoomInfo[]>([]);
   const { getRoomsInfo } = useRooms();
 
   function openModal() {
@@ -27,7 +27,7 @@ export function Home() {
     }
 
     fetchRoomsInfo();
-  }, []);
+  }, [modalIsOpen]);
 
   if (!rooms) {
     return <span>loading</span>;
@@ -37,6 +37,7 @@ export function Home() {
     <Container>
       <Header />
       <Modal
+        ariaHideApp={false}
         isOpen={modalIsOpen}
         // onAfterOpen={}
         onRequestClose={closeModal}
@@ -72,9 +73,10 @@ export function Home() {
       </Title>
       <RoomsContainer>
         <Rooms>
-          {rooms.map((room) => {
+          {rooms.map((room, index) => {
             return (
               <RoomCard
+                key={index}
                 name={room.name}
                 format={room.format_id}
                 buyin={room.buyin}

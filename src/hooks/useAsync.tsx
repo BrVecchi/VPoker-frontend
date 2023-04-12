@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 export default function useAsync(
   handler: (...args: any[]) => Promise<any>,
@@ -13,7 +13,7 @@ export default function useAsync(
     setError(null);
 
     try {
-      const data = await handler(args);
+      const data = await handler(...args);
       setData(data);
       setLoading(false);
       return data;

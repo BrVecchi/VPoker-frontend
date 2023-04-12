@@ -1,5 +1,5 @@
-import * as roomApi from '../../services/roomApi';
-import useAsync from '../useAsync';
+import * as roomApi from "../../services/roomApi";
+import useAsync from "../useAsync";
 
 export default function useRooms(): RoomHookData {
   const {
@@ -33,4 +33,10 @@ export interface RoomInfo {
   created_by: number;
   created_at: string;
   updated_at: string;
+}
+
+export interface RoomInfoToCreate {
+  name: string;
+  format_id: number;
+  buyin: number;
 }

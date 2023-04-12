@@ -1,23 +1,30 @@
 import { useEffect, useState } from "react";
 import { IoCheckmark, IoClose } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import styled from "styled-components";
 
 import useCreateRoom from "../../hooks/api/useCreateRoom";
 
 export function RoomForm(props: any) {
-  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [format, setFormat] = useState("");
   const [buyIn, setBuyIn] = useState("");
   const { createRoom } = useCreateRoom();
   const [formatId, setFormatId] = useState(0);
-  console.log(format, formatId);
+  const navigate = useNavigate();
 
   const createAndOpenRoom = async (e: any) => {
     e.preventDefault();
-    await createRoom(name, formatId, buyIn);
-    navigate("/");
+
+    try {
+      const { roomError } = await createRoom(name, formatId, buyIn);
+      toast("Sala criada com sucesso!");
+      if (roomError) throw roomError;
+      closeModal();
+    } catch (error) {
+      toast("Não foi possível criar a sala!");
+    }
   };
 
   useEffect(() => {
