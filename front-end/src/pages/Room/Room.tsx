@@ -42,7 +42,7 @@ export function Room() {
 const Container = styled.div`
   width: 100%;
   height: 100vh;
-  background: radial-gradient(circle, #222947 25%, #000000 125%);
+  background: radial-gradient(#222947 25%, #000000 125%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -64,6 +64,7 @@ const Table = styled.div`
   border-radius: 50%;
   border: 25px solid #6d7922;
   position: relative;
+  background: radial-gradient(#0c6744 60%, #000000 85%);
 `;
 
 const Player1 = styled.div`
