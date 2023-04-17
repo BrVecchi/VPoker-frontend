@@ -7,54 +7,46 @@ import playerImg from "../../assets/imgs/playerImg.png";
 export function Room() {
   return (
     <>
-      <Page>
-        <Container>
-          <TableContainer>
-            <Table>
-              <TableInfos>
-                <Pot>Pot: 6,485</Pot>
-                <Cards>
-                  <CardImages src={flushPoker} />
-                </Cards>
-                <Bet>3,000</Bet>
-              </TableInfos>
-              <Player1>
-                <Image>
-                  <PlayerImage src={playerImg} />
-                </Image>
-                <PlayerInfo>
-                  <PlayerName>Player1</PlayerName>
-                  <ChipsInfo>
-                    <RiMoneyDollarCircleLine size={20} />
-                    <ChipsValue>10.000</ChipsValue>
-                  </ChipsInfo>
-                </PlayerInfo>
-              </Player1>
-              <Player2></Player2>
-              <Player3></Player3>
-              <Player4></Player4>
-            </Table>
-          </TableContainer>
-        </Container>
-      </Page>
+      <Container>
+        <TableContainer>
+          <Table>
+            <TableInfos>
+              <Pot>Pot: 6,485</Pot>
+              <Cards>
+                <CardImages src={flushPoker} />
+              </Cards>
+              <Bet>3,000</Bet>
+            </TableInfos>
+            <Player1>
+              <Image>
+                <PlayerImage src={playerImg} />
+              </Image>
+              <PlayerInfo>
+                <PlayerName>Player1</PlayerName>
+                <ChipsInfo>
+                  <RiMoneyDollarCircleLine size={20} />
+                  <ChipsValue>10.000</ChipsValue>
+                </ChipsInfo>
+              </PlayerInfo>
+            </Player1>
+            <Player2></Player2>
+            <Player3></Player3>
+            <Player4></Player4>
+          </Table>
+        </TableContainer>
+      </Container>
     </>
   );
 }
 
-const Page = styled.div`
-  width: 100%;
-  height: 100vh;
-  background-color: #000000;
-`;
-
 const Container = styled.div`
   width: 100%;
   height: 100vh;
-  background-color: #222947;
-  /* filter: blur(300px); */
+  background: radial-gradient(circle, #222947 25%, #000000 125%);
   display: flex;
   align-items: center;
   justify-content: center;
+  backdrop-filter: blur(300px);
 `;
 
 const TableContainer = styled.div`
