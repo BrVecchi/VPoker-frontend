@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 export function RoomCard(props: any) {
   return (
-    <Container>
+    <Container onClick={props.onClick}>
       <IconContainer>
         <GiPokerHand color="#FFFFFF" size="98px" />
       </IconContainer>

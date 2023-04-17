@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { IoIosAdd } from "react-icons/io";
 import Modal from "react-modal";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import { Header } from "../../components/Header/Header";
@@ -12,6 +13,8 @@ export function Home() {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [rooms, setRooms] = useState<RoomInfo[]>([]);
   const { getRoomsInfo } = useRooms();
+  const navigate = useNavigate();
+  console.log(rooms);
 
   function openModal() {
     setIsOpen(true);
@@ -19,6 +22,10 @@ export function Home() {
   function closeModal() {
     setIsOpen(false);
   }
+
+  const goToRoom = () => {
+    navigate("/room");
+  };
 
   useEffect(() => {
     async function fetchRoomsInfo() {
@@ -81,6 +88,7 @@ export function Home() {
                 format={room.format_id}
                 buyin={room.buyin}
                 capacity={6}
+                onClick={goToRoom}
               />
             );
           })}
