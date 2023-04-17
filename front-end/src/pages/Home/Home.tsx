@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
-import { IoIosAdd } from "react-icons/io";
-import Modal from "react-modal";
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
+import { useEffect, useState } from 'react';
+import { IoIosAdd } from 'react-icons/io';
+import Modal from 'react-modal';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 
-import { Header } from "../../components/Header/Header";
-import { RoomCard } from "../../components/RoomCard/RoomCard";
-import { RoomForm } from "../../components/RoomForm/RoomForm";
-import useRooms, { RoomInfo } from "../../hooks/api/useRoom";
+import { Header } from '../../components/Header/Header';
+import { RoomCard } from '../../components/RoomCard/RoomCard';
+import { RoomForm } from '../../components/RoomForm/RoomForm';
+import useRooms, { RoomInfo } from '../../hooks/api/useRoom';
 
 export function Home() {
   const [modalIsOpen, setIsOpen] = useState(false);

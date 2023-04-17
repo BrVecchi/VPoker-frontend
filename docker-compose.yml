@@ -1,0 +1,28 @@
+services:
+  react:
+    container_name: react
+    build: ./front-end
+    image: vpoker/frontend
+    volumes:
+      - react-volume:/var/www/html
+
+  nginx:
+    container_name: nginx
+    build: ./nginx
+    image: vpoker/nginx
+    networks:
+      - vpoker-network
+    ports:
+      - 80:80
+    volumes:
+      - react-volume:/var/www/html
+    depends_on:
+      - react
+
+networks:
+  vpoker-network:
+    name: vpoker-network
+    external: true
+
+volumes:
+  react-volume:
