@@ -7,14 +7,16 @@ import styled from 'styled-components';
 import { Header } from '../../components/Header/Header';
 import { RoomCard } from '../../components/RoomCard/RoomCard';
 import { RoomForm } from '../../components/RoomForm/RoomForm';
+import { FormatInfo } from '../../hooks/api/useFormat';
 import useRooms, { RoomInfo } from '../../hooks/api/useRoom';
+import { getFormats } from '../../services/formatApi';
 
 export function Home() {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [rooms, setRooms] = useState<RoomInfo[]>([]);
+  const [formats, setFormats] = useState<FormatInfo[]>([]);
   const { getRoomsInfo } = useRooms();
   const navigate = useNavigate();
-  console.log(rooms);
 
   function openModal() {
     setIsOpen(true);
@@ -28,12 +30,14 @@ export function Home() {
   };
 
   useEffect(() => {
-    async function fetchRoomsInfo() {
-      const data = await getRoomsInfo();
-      setRooms(data);
+    async function fetchInfos() {
+      const roomsData = await getRoomsInfo();
+      const formatsData = await getFormats();
+      setRooms(roomsData);
+      setFormats(formatsData);
     }
 
-    fetchRoomsInfo();
+    fetchInfos();
   }, [modalIsOpen]);
 
   if (!rooms) {
@@ -46,7 +50,6 @@ export function Home() {
       <Modal
         ariaHideApp={false}
         isOpen={modalIsOpen}
-        // onAfterOpen={}
         onRequestClose={closeModal}
         style={{
           overlay: {
@@ -81,11 +84,14 @@ export function Home() {
       <RoomsContainer>
         <Rooms>
           {rooms.map((room, index) => {
+            const format = formats.find(
+              (format) => format.id === room.format_id
+            );
             return (
               <RoomCard
                 key={index}
                 name={room.name}
-                format={room.format_id}
+                format={format?.name}
                 buyin={room.buyin}
                 capacity={6}
                 onClick={goToRoom}
